@@ -38,3 +38,22 @@ p = Pool(len(tasks))
 # Map each task to the backup_files function
 p.map(backup_files, tasks)
 ```
+
+I also use os.walk to grab all the subdirectories of the source folder, and then break out after the first pass of `os.walk()` using the 
+value of 1 for `i`.
+
+```python
+def get_folders_to_backup(source):
+
+        '''Get a list of all the files that need to be backed up'''
+        i = 0
+        list = []
+        for root, dirs, files in os.walk(source):
+                for name in dirs:
+                        list.append(name)
+                i += 1
+                if i == 1:
+                        break
+
+        return list
+```
